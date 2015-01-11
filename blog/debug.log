@@ -1,0 +1,16 @@
+date: "2015-01-11 21:53:06.763"
+argv: "node C:\\Users\\aksof_000\\AppData\\Roaming\\npm\\node_modules\\hexo\\bin\\hexo clean"
+os: Windows_NT 6.2.9200 win32 x64
+versions:
+  http_parser: "1.0"
+  node: 0.10.35
+  v8: 3.14.5.9
+  ares: 1.9.0-DEV
+  uv: 0.10.30
+  zlib: 1.2.8
+  modules: "11"
+  openssl: 1.0.1j
+  hexo: 2.8.3
+---
+[debug] 21:53:06.383 Config file loaded from E:\hexo\blog\_config.yml[debug] 21:53:06.383 Version info checked successfully[debug] 21:53:06.423 Loading database.[debug] 21:53:06.473 Processed: draft.md (0ms)[debug] 21:53:06.473 Processed: page.md (0ms)[debug] 21:53:06.483 Processed: post.md (10ms)[debug] 21:53:06.483 Processed: photo.md (10ms)[debug] 21:53:06.503 Plugin loaded successfully: hexo-renderer-ejs[debug] 21:53:06.523 Plugin loaded successfully: hexo-renderer-marked[debug] 21:53:06.743 Plugin loaded successfully: hexo-renderer-stylus[debug] 21:53:06.753 Script load successfully: fancybox.js[info] 21:53:06.753 Deleted cache file[error] 21:53:06.753 Error: ENOTEMPTY, rmdir 'E:\hexo\blog\public'
+Error: ENOTEMPTY, rmdir 'E:\hexo\blog\public'
