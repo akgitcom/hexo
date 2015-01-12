@@ -3,7 +3,7 @@ date: 2015-01-11 22:11:23
 tags: [rails,kaminari]
 ---
 
-![野三坡](http://7u2icj.com1.z0.glb.clouddn.com/IMG_0242.jpg)
+![野三坡](http://7u2icj.com1.z0.glb.clouddn.com/github-IMG_0242.jpg)
 
 ##常用命令
 ```bash
@@ -18,7 +18,7 @@ gem 'mysql2'
 gem 'kaminari' #分页
 gem 'nokogiri' #DOM分析
 ```
-
+<!--more-->
 [kaminari](https://github.com/amatsuda/kaminari)
 [kaminari简要文档](http://akgitcom.github.io/2014/09/11/kaminari%E7%AE%80%E8%A6%81%E6%96%87%E6%A1%A3/)
 

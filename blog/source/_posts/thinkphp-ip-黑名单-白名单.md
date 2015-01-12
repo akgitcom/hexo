@@ -3,6 +3,7 @@ date: 2015-01-11 22:09:41
 tags: php
 ---
 获取搜素引擎蜘蛛访问情况，入库统计。
+<!--more-->
 ```php
 public function is_bot()
 {

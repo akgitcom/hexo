@@ -6,10 +6,10 @@ menu:
 
 # SubNav
 subnav:
-  github: "#"
+  github: "http://github.com/akgitcom"
   weibo: "#"
-  rss: "#"
-  facebook: "#"
+  rss: "/atom.xml"
+  # facebook: "#"
   # google: "#"
   # twitter: "#"
   # linkedin: "#"
@@ -23,9 +23,9 @@ fancybox: true
 # Miscellaneous
 google_analytics: ''
 favicon: /favicon.png
-author: clouds of may
+author: 五月碧云天
 #你的头像
-avatar: "http://7u2icj.com1.z0.glb.clouddn.com/1272373523.jpg"
+avatar: "http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg"
 #是否开启分享
 share: true
 #是否开启多说评论，填写你在多说申请的项目名称
@@ -38,8 +38,9 @@ tagcloud: true
 #不开启——
 # friends: false
 #开启——
-# friends:
-#   奥巴马的博客: http://localhost:4000/
+friends:
+  人人都是产品经理: http://iamsujie.com/
+  Litten: http://litten.github.io/
 #   卡卡的美丽传说: http://localhost:4000/
 #   本泽马的博客: http://localhost:4000/
 #   吉格斯的博客: http://localhost:4000/
@@ -50,4 +51,4 @@ tagcloud: true
 #不开启——
 #aboutme: false
 #开启——
-aboutme: 我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…
+aboutme: "---------------五月的春天---------------轻笑---------------谁的眼角冒着泡泡---------------伴着苍鹰的尾翼---------------翩然起舞"

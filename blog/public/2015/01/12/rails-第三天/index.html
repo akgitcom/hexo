@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>rails 第三天 | 五月碧云天</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="多对多关联：
+在Rails中多对多关联通过在关联表对应的类中声明has_and_belongs_to_many来实现。在数据库中，多对多关联使用中间表来实现，表中包括关联表的主键，Active Record假定这个中间表的名字是由关联表的名字根据字母的顺序串联起来得到的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails 第三天">
+<meta property="og:url" content="http://yoursite.com/2015/01/12/rails-第三天/">
+<meta property="og:site_name" content="五月碧云天">
+<meta property="og:description" content="多对多关联：
+在Rails中多对多关联通过在关联表对应的类中声明has_and_belongs_to_many来实现。在数据库中，多对多关联使用中间表来实现，表中包括关联表的主键，Active Record假定这个中间表的名字是由关联表的名字根据字母的顺序串联起来得到的。">
+<meta property="og:image" content="http://7u2icj.com1.z0.glb.clouddn.com/github-Rails57_1.gif">
+<meta property="og:image" content="http://7u2icj.com1.z0.glb.clouddn.com/github-Rails57_2.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rails 第三天">
+<meta name="twitter:description" content="多对多关联：
+在Rails中多对多关联通过在关联表对应的类中声明has_and_belongs_to_many来实现。在数据库中，多对多关联使用中间表来实现，表中包括关联表的主键，Active Record假定这个中间表的名字是由关联表的名字根据字母的顺序串联起来得到的。">
+
+  
+    <link rel="alternative" href="/atom.xml" title="五月碧云天" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<div class="profilepic">
+			<img src="http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg">
+		</div>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">五月碧云天</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/akgitcom" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud">
+						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 10.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 10.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 10.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://iamsujie.com/">人人都是产品经理</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://litten.github.io/">Litten</a>
+			        
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					---------------五月的春天---------------轻笑---------------谁的眼角冒着泡泡---------------伴着苍鹰的尾翼---------------翩然起舞
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay"></div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg">
+			</div>
+
+			<hgroup>
+			  <h1 class="header-author"><a href="/">五月碧云天</a></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/akgitcom" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <article id="post-rails-第三天" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/12/rails-第三天/" class="article-date">
+  	<time datetime="2015-01-12T01:11:06.000Z" itemprop="datePublished">Jan 12 2015</time>
+</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/关联查询/">关联查询</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多对多/">多对多</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      rails 第三天
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="多对多关联：">多对多关联：</h2>
+<p>在Rails中多对多关联通过在关联表对应的类中声明has_and_belongs_to_many来实现。<br>在数据库中，多对多关联使用中间表来实现，表中包括关联表的主键，Active Record假定这个中间表的名字是由关联表的名字根据字母的顺序串联起来得到的。<br><a id="more"></a><br>例如，关联表为categories和products，中间表的名字就是categories_products。<br><img src="http://7u2icj.com1.z0.glb.clouddn.com/github-Rails57_1.gif" alt="关联表为categories和products"></p>
+<blockquote>
+<p>注意我们的关联表没有id列，有两个原因:<br>首先，不需要一个唯一的标识来识别两个外键之间的连接，我们定义表的语句像下面这样：</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> categories_products (</span></div><div class="line">category_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</div><div class="line">product_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</div><div class="line"><span class="keyword">constraint</span> fk_cp_category <span class="keyword">foreign</span> <span class="keyword">key</span> (category_id) <span class="keyword">references</span> categories(id),</div><div class="line"><span class="keyword">constraint</span> fk_cp_product <span class="keyword">foreign</span> <span class="keyword">key</span> (product_id) <span class="keyword">references</span> products(id),</div><div class="line"><span class="keyword">primary</span> <span class="keyword">key</span> (category_id, product_id)</div><div class="line">);</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第二个原因在中间表中不包括一个<strong>id</strong>列，<strong>Active Record</strong>在访问某个行时会自动包含所有的列。如果包含了一个id列，那么这个<strong>id</strong>列就会复写掉在关联表中的<strong>id</strong>列。</p>
+</blockquote>
+<h2 id="he_has_and_belongs_to_many()声明:">he has_and_belongs_to_many()声明:</h2>
+<blockquote>
+<p><strong>has_and_belongs_to_many</strong>在很多方面很像<strong>has_many</strong>，<strong>has_and_belongs_to_many</strong>创建了本质上是一个集合的属性，该属性支持和<strong>has_many</strong>相同的方法。<br>也许我们使用Rails来写一个社区站点，在这里用户可以阅读文章。这里有很多的用户和文章，而且任何一个用户都可以阅读多个文章，为了跟踪，我们希望知道谁读了哪些文章，每篇文章有谁阅读过，我们也希望知道用户最后一次在什么时间阅读了哪篇文章，我们会这样设计表：</p>
+</blockquote>
+<p><img src="http://7u2icj.com1.z0.glb.clouddn.com/github-Rails57_2.gif" alt=""></p>
+<p>我们这样设置两个Model类互相关联：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Article</span> <span class="inheritance">&lt; <span class="parent">ActiveRecord::Base</span></span></span></div><div class="line">	has_and_belongs_to_many <span class="symbol">:users</span></div><div class="line"><span class="comment"># ...</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="inheritance">&lt; <span class="parent">ActiveRecord::Base</span></span></span></div><div class="line">	has_and_belongs_to_many <span class="symbol">:articles</span></div><div class="line"><span class="comment"># ...</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>这样我们就可以列出所有阅读过文章123的用户和名为pragdave的用户阅读的所有文章：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Who has read article 123?</span></div><div class="line">article = <span class="constant">Article</span>.find(<span class="number">123</span>)</div><div class="line">readers = article.users</div><div class="line"><span class="comment"># What has Dave read?</span></div><div class="line">dave = <span class="constant">User</span>.find_by_name(<span class="string">"pragdave"</span>)</div><div class="line">articles_that_dave_read = dave.articles</div></pre></td></tr></table></figure>
+
+<p>当我们的程序通知某个人阅读了某篇文章的时候，将user记录和article记录建立关联，我们调用下面的方法：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="inheritance">&lt; <span class="parent">ActiveRecord::Base</span></span></span></div><div class="line">	has_and_belongs_to_many <span class="symbol">:articles</span></div><div class="line">	<span class="function"><span class="keyword">def</span> </span>read_article(article)</div><div class="line">		articles.push_with_attributes(article, <span class="symbol">:read_at</span> =&gt; <span class="constant">Time</span>.now)</div><div class="line">	<span class="keyword">end</span></div><div class="line"><span class="comment"># ...</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>方法push_with_attributes( )和&lt;&lt;方法的作用一样，都是给两个Model之间设置连接，而且还赋值给中间表记录什么人在什么时间阅读了文章。</p>
+<blockquote>
+<p>注：如果该方法难以理解，可以想象一下C#中使用反射给某个对象的字段赋值，我们需要提供对象，对象的字段名，字段对应的值来进行操作。作为一种的关联方法，<strong>hasand_belongs_to_many</strong>支持一系列声明来复写<strong>Active Record</strong>的默认设置：<strong>:class_name</strong>, <strong>:foreign_key</strong>和<strong>:conditions</strong>，和其他的has方法一样(<strong>:foreign_key</strong>设置中间表中的外键的名字)。进一步说，<strong>has_and_belongs_to_many</strong>支持复写中间表的名字，外键列的名字，<strong>find</strong>，<strong>insert</strong>，<strong>delete</strong>中使用的SQL，详细请参考Rdoc。</p>
+</blockquote>
+<p>原文出处:<a href="http://www.cnblogs.com/dahuzizyd/archive/2008/04/24/ruby_rails_57.html" target="_blank" rel="external">Ruby on rails开发从头来（五十七）- ActiveRecord基础（多对多关联关系）</a><br>参考文章:<br><a href="http://blog.csdn.net/abbuggy/article/details/8274717" target="_blank" rel="external">Ruby on Rails，一对多关联（One-to-Many）</a><br><a href="http://guides.ruby-china.org/association_basics.html" target="_blank" rel="external">http://guides.ruby-china.org/association_basics.html</a><br><a href="https://gist.github.com/nightire/5124880" target="_blank" rel="external">https://gist.github.com/nightire/5124880</a></p>
+
+      
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/12/thinkphp-后台动态设置路由/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          thinkphp 后台动态设置路由
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/12/rails-第二天/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rails 第二天</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="rails-第三天" data-title="rails 第三天" data-url="http://yoursite.com/2015/01/12/rails-第三天/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 五月碧云天
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+  <script src="/js/main.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>
