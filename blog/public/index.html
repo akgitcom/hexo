@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud">
-						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 10.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 10.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 10.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a>
+						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 15.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 15.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 15.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a><a href="/tags/搜索/" style="font-size: 10.00px;">搜索</a><a href="/tags/路由/" style="font-size: 10.00px;">路由</a>
 					</div>
 				</section>
 				
@@ -124,6 +124,16 @@
 			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://iamsujie.com/">人人都是产品经理</a>
 			        
 			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://litten.github.io/">Litten</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hi.baidu.com/madesign">疯狂的设计</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://jandan.net/">煎蛋</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.mindmeters.com/">思维的乐趣</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zreading.cn/">左岸读书</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gate.guokr.com/">果壳任意门</a>
 			        
 				</section>
 				
@@ -179,6 +189,112 @@
 </nav>
       
   
+    <article id="post-thinkphp-路由分页搜索" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/13/thinkphp-路由分页搜索/" class="article-date">
+  	<time datetime="2015-01-13T05:50:14.000Z" itemprop="datePublished">Jan 13 2015</time>
+</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thinkphp/">thinkphp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分页/">分页</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索/">搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/路由/">路由</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/13/thinkphp-路由分页搜索/">thinkphp 路由分页搜索</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>thinkphp的条件搜索分页后需要指定路由,<code>search</code>是路由的名字,可以换成任意字符,需要在route.php修改,这里是指定的参数</p>
+<ul>
+<li>i_f_searchtxt #搜索字符</li>
+<li>sc #select分类</li>
+<li><strong>hash</strong> #自带参数,必选</li>
+</ul>
+<p>设置<strong>$p-&gt;url</strong>参数,直接拼接字符串:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$p</span><span class="variable">-&gt;url</span> = <span class="string">"search/i_f_searchtxt/"</span>.<span class="variable">$_GET</span>[<span class="string">"i_f_searchtxt"</span>].<span class="string">"/sc/"</span>.<span class="variable">$_GET</span>[<span class="string">"sc"</span>].<span class="string">"/__hash__/"</span>.<span class="variable">$_GET</span>[<span class="string">"__hash__"</span>].<span class="string">'/p/'</span>;</div></pre></td></tr></table></figure>
+
+<p><strong>config/route.php:</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$arr</span>[<span class="string">'URL_ROUTE_RULES'</span>][<span class="string">'search/:i_f_searchtxt/:sc/:p\d'</span>] = <span class="keyword">array</span>(<span class="string">'Index/Search'</span>);</div><div class="line"><span class="variable">$arr</span>[<span class="string">'URL_ROUTE_RULES'</span>][<span class="string">'search'</span>] = <span class="keyword">array</span>(<span class="string">'Index/Search'</span>);</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里的route.php是<a href="http://localhost:4000/2015/01/12/thinkphp-%E5%90%8E%E5%8F%B0%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/" target="_blank" rel="external">thinkphp后台动态设置路由</a>文章里使用的方法自动生成的.</p>
+<p><strong>$_GET</strong>方法还需要过滤,或者直接用thinkphp提供的<code>I</code>方法</p>
+</blockquote>
+
+      
+    </div>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-客户体验的三个层面" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/13/客户体验的三个层面/" class="article-date">
+  	<time datetime="2015-01-13T01:02:39.000Z" itemprop="datePublished">Jan 13 2015</time>
+</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/客户体验/">客户体验</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/13/客户体验的三个层面/">客户体验的三个层面</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>之于绝大多数企业，客户体验是客户回头率的单一决定因素——也是决胜竞争对手的决定因素。尤其是在言必称互联网模式的时代，客户体验显得至关重要，即使是那些垄断行业，比如快递（中国邮政）和银行，如果在客户体验方面失败也会面临危机。可以说，未来，客户体验会是一切的核心——它决定了企业如何运营自身的业务，员工在同客户和彼此之间互动时的行为方式，以及企业所提供的价值。<br>
+        
+          <p class="article-more-link">
+            <a href="/2015/01/13/客户体验的三个层面/#more">more >></a>
+          </p>
+        
+      
+    </div>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-如何设计你的2015年度计划" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -208,8 +324,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文:<a href="http://www.jianshu.com/p/caf33f648acb" target="_blank" rel="external">http://www.jianshu.com/p/caf33f648acb</a></p>
-<p>新的一年总有新的愿景与目标，也就是<code>「年度计划」</code>（New Year Resolution）。两个多月前，<a href="http://www.facebook.com" target="_blank" rel="external">脸书</a>的创办人<a href="http://zh.wikipedia.org/wiki/%E9%A9%AC%E5%85%8B%C2%B7%E6%89%8E%E5%85%8B%E4%BC%AF%E6%A0%BC" target="_blank" rel="external">扎克伯格（Mark Zuckerberg）</a>到北京参访，在清华大学用中文做了超过30分钟的演讲与问答，令大家印象深刻。不只国内媒体，许多美国主流媒体都用「惊悚」来形容他的中文能力。
+        <p>新的一年总有新的愿景与目标，也就是<code>「年度计划」</code>（New Year Resolution）。两个多月前，<a href="http://www.facebook.com" target="_blank" rel="external">脸书</a>的创办人<a href="http://zh.wikipedia.org/wiki/%E9%A9%AC%E5%85%8B%C2%B7%E6%89%8E%E5%85%8B%E4%BC%AF%E6%A0%BC" target="_blank" rel="external">扎克伯格（Mark Zuckerberg）</a>到北京参访，在清华大学用中文做了超过30分钟的演讲与问答，令大家印象深刻。不只国内媒体，许多美国主流媒体都用「惊悚」来形容他的中文能力。
         
           <p class="article-more-link">
             <a href="/2015/01/12/如何设计你的2015年度计划/#more">more >></a>
@@ -315,105 +430,6 @@
         
           <p class="article-more-link">
             <a href="/2015/01/12/Rails-4-1-6-使用Devise-和Simple-Captcha-验证码/#more">more >></a>
-          </p>
-        
-      
-    </div>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-rails开发CMS遇到的问题" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/01/12/rails开发CMS遇到的问题/" class="article-date">
-  	<time datetime="2015-01-12T01:43:33.000Z" itemprop="datePublished">Jan 12 2015</time>
-</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cms/">cms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/12/rails开发CMS遇到的问题/">rails开发CMS遇到的问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="关联排序并取出第一个IMAGE">关联排序并取出第一个IMAGE</h3>
-<blockquote>
-<p>uploader用了carrierwave的七牛云,如果不用：<br>&lt;%= b.photos.order(sort: :asc).pluck(:image).pop || “blank.jpg” %&gt;<br>b.photos.order(sort: :asc) 你的<br>.pluck(:image)，取出image字段<br>.pop，取出第一个，如果为空，返回nil<br>|| blank，默认图片</p>
-</blockquote>
-<figure class="highlight rails"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="vbscript">&lt;% @products.<span class="keyword">each</span> <span class="keyword">do</span> |b|%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/products/&lt;%=b.id%&gt;.html"</span>&gt;</span></div><div class="line"><span class="vbscript">&lt;%= image_tag( b.photos.order(sort: :<span class="built_in">asc</span>).map(&:image_url).pop) %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">a</span>&gt;</span></div><div class="line"><span class="vbscript">&lt;%= link_to truncate(strip_tags(b.title), length: <span class="number">60</span>, escape: <span class="literal">false</span>),</span></div><div class="line">                            {:controller =&gt; <span class="string">"products"</span>,</div><div class="line">                             :action =&gt; <span class="string">"show"</span>,</div><div class="line">                             :id =&gt; <span class="string">"#{b.id}"</span>,</div><div class="line">                             :format=&gt;<span class="string">"html"</span></div><div class="line">                            } %&gt;</div><div class="line"><span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line"><span class="vbscript">&lt;% <span class="keyword">end</span> %&gt;</span></div></pre></td></tr></table></figure>
-
-<h3 id="截取字符串包括”…”加字符数量">截取字符串包括”…”加字符数量</h3>
-<figure class="highlight rails"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">truncate</span>(strip_tags(b.title), length: <span class="number">60</span>, <span class="keyword">escape</span>: <span class="literal">false</span>)</span></div></pre></td></tr></table></figure>
-
-
-      
-    </div>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-rails-第四天" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/01/12/rails-第四天/" class="article-date">
-  	<time datetime="2015-01-12T01:37:39.000Z" itemprop="datePublished">Jan 12 2015</time>
-</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DynamicRouter/">DynamicRouter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态路由/">动态路由</a></li></ul>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/12/rails-第四天/">rails 第四天</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="在rails_4-1-5_里动态设置路由">在rails 4.1.5 里动态设置路由</h2>
-<p>需要动态获取数据路由相关数据来动态设置路由，有同学指出用路由分析库 <a href="https://github.com/rails/journey" target="_blank" rel="external">点我</a>,看上去太复杂了，自己理解为模块设置路由，每次保存前重启应该就可以。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/01/12/rails-第四天/#more">more >></a>
           </p>
         
       
