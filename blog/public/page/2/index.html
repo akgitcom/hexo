@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud">
-						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 15.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 15.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 15.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a><a href="/tags/搜索/" style="font-size: 10.00px;">搜索</a><a href="/tags/路由/" style="font-size: 10.00px;">路由</a>
+						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/chmod/" style="font-size: 10.00px;">chmod</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/linux/" style="font-size: 10.00px;">linux</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 15.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 15.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 15.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a><a href="/tags/搜索/" style="font-size: 10.00px;">搜索</a><a href="/tags/权限/" style="font-size: 10.00px;">权限</a><a href="/tags/路由/" style="font-size: 10.00px;">路由</a><a href="/tags/递归/" style="font-size: 10.00px;">递归</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,57 @@
 	</div>
 </nav>
       
+  
+    <article id="post-Rails-4-1-6-使用Devise-和Simple-Captcha-验证码" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/12/Rails-4-1-6-使用Devise-和Simple-Captcha-验证码/" class="article-date">
+  	<time datetime="2015-01-12T01:45:52.000Z" itemprop="datePublished">Jan 12 2015</time>
+</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devise/">devise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/simple-captcha/">simple captcha</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/12/Rails-4-1-6-使用Devise-和Simple-Captcha-验证码/">Rails 4.1.6 使用Devise 和Simple Captcha 验证码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="rails_simple_captcha_验证码实现">rails simple_captcha 验证码实现</h2>
+<h3 id="用到的gem有">用到的gem有</h3>
+<figure class="highlight rails"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">"galetahub-simple_captcha"</span>, :<span class="keyword">require</span> =&gt; <span class="string">"simple_captcha"</span></div><div class="line">gem <span class="string">"mini_magick"</span></div></pre></td></tr></table></figure>
+
+<p>
+        
+          <p class="article-more-link">
+            <a href="/2015/01/12/Rails-4-1-6-使用Devise-和Simple-Captcha-验证码/#more">more >></a>
+          </p>
+        
+      
+    </div>
+  </div>
+  
+</article>
+
+
+
+
+
+
   
     <article id="post-rails开发CMS遇到的问题" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -387,59 +438,9 @@
 
 
   
-    <article id="post-rails-第二天" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/01/12/rails-第二天/" class="article-date">
-  	<time datetime="2015-01-12T01:05:47.000Z" itemprop="datePublished">Jan 12 2015</time>
-</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/form/">form</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/helper/">helper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link-to/">link_to</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/12/rails-第二天/">rails 第二天</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="调用淘宝IP的API，Helper：">调用淘宝IP的API，Helper：</h2>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">AdminsHelper</span></span></div><div class="line">  <span class="keyword">require</span> <span class="string">'open-uri'</span></div><div class="line">  <span class="keyword">require</span> <span class="string">'json'</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>hello_world(name)</div><div class="line">    <span class="string">"hello <span class="subst">#{name}</span>"</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>get_location</div><div class="line">    ip = request.remote_ip</div><div class="line">    url = <span class="string">"http://ip.taobao.com/service/getIpInfo.php?ip="</span> + ip</div><div class="line">    response = <span class="constant">Net::HTTP</span>.get_response(<span class="constant">URI</span>.parse(url)).body</div><div class="line">    response = <span class="constant">JSON</span>.parse(response)[<span class="string">'data'</span>]</div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>get_country</div><div class="line">    response = get_location[<span class="string">'country'</span>]</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-<p>
-        
-          <p class="article-more-link">
-            <a href="/2015/01/12/rails-第二天/#more">more >></a>
-          </p>
-        
-      
-    </div>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 

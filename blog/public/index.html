@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud">
-						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 15.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 15.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 15.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a><a href="/tags/搜索/" style="font-size: 10.00px;">搜索</a><a href="/tags/路由/" style="font-size: 10.00px;">路由</a>
+						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/chmod/" style="font-size: 10.00px;">chmod</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/linux/" style="font-size: 10.00px;">linux</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 15.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 15.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 15.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a><a href="/tags/搜索/" style="font-size: 10.00px;">搜索</a><a href="/tags/权限/" style="font-size: 10.00px;">权限</a><a href="/tags/路由/" style="font-size: 10.00px;">路由</a><a href="/tags/递归/" style="font-size: 10.00px;">递归</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,56 @@
 	</div>
 </nav>
       
+  
+    <article id="post-使用chmod如何给文件夹递归授予权限" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/14/使用chmod如何给文件夹递归授予权限/" class="article-date">
+  	<time datetime="2015-01-14T04:52:37.000Z" itemprop="datePublished">Jan 14 2015</time>
+</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chmod/">chmod</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/权限/">权限</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/递归/">递归</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/14/使用chmod如何给文件夹递归授予权限/">使用chmod如何给文件夹递归授予权限</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">find /path -type f -exec chmod <span class="number">644</span> {} \; 修改文件权限</div><div class="line">find /path -type d -exec chmod <span class="number">755</span> {} \;修改文件夹权限</div></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/path</code> , -type 根据类型和路径遍历文件以及子文件夹</li>
+<li><code>-exec</code> 每遍历一步就执行一次此参数后的命令</li>
+<li><code>{}</code> 代表前面所遍历到的文件或文件夹</li>
+<li><code>\;</code> 代表-exec命令的结束符号，-exec命令的固定格式</li>
+</ul>
+
+      
+    </div>
+  </div>
+  
+</article>
+
+
+
+
+
+
   
     <article id="post-thinkphp-路由分页搜索" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -393,60 +443,9 @@
 
 
   
-    <article id="post-Rails-4-1-6-使用Devise-和Simple-Captcha-验证码" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/01/12/Rails-4-1-6-使用Devise-和Simple-Captcha-验证码/" class="article-date">
-  	<time datetime="2015-01-12T01:45:52.000Z" itemprop="datePublished">Jan 12 2015</time>
-</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devise/">devise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/simple-captcha/">simple captcha</a></li></ul>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/12/Rails-4-1-6-使用Devise-和Simple-Captcha-验证码/">Rails 4.1.6 使用Devise 和Simple Captcha 验证码</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="rails_simple_captcha_验证码实现">rails simple_captcha 验证码实现</h2>
-<h3 id="用到的gem有">用到的gem有</h3>
-<figure class="highlight rails"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">"galetahub-simple_captcha"</span>, :<span class="keyword">require</span> =&gt; <span class="string">"simple_captcha"</span></div><div class="line">gem <span class="string">"mini_magick"</span></div></pre></td></tr></table></figure>
-
-<p>
-        
-          <p class="article-more-link">
-            <a href="/2015/01/12/Rails-4-1-6-使用Devise-和Simple-Captcha-验证码/#more">more >></a>
-          </p>
-        
-      
-    </div>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
