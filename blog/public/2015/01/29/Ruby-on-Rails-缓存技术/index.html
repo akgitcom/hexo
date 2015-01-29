@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ruby on Rails 缓存技术 | 五月碧云天</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当你网站访问量上升的时候，你可能为你的rails项目增加一些缓存应用。这个教程将告诉你关于rails缓存的方方面面，帮助你提高rails应用，而不必再为过度的cpu开销而烦心。
+rails缓存有几种方式，这篇教程将分几个部分向你分别介绍如何应用不同的缓存方案，以及一些高级的有针对性的缓存应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ruby on Rails 缓存技术">
+<meta property="og:url" content="http://akgitcom.github.io/2015/01/29/Ruby-on-Rails-缓存技术/">
+<meta property="og:site_name" content="五月碧云天">
+<meta property="og:description" content="当你网站访问量上升的时候，你可能为你的rails项目增加一些缓存应用。这个教程将告诉你关于rails缓存的方方面面，帮助你提高rails应用，而不必再为过度的cpu开销而烦心。
+rails缓存有几种方式，这篇教程将分几个部分向你分别介绍如何应用不同的缓存方案，以及一些高级的有针对性的缓存应用。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ruby on Rails 缓存技术">
+<meta name="twitter:description" content="当你网站访问量上升的时候，你可能为你的rails项目增加一些缓存应用。这个教程将告诉你关于rails缓存的方方面面，帮助你提高rails应用，而不必再为过度的cpu开销而烦心。
+rails缓存有几种方式，这篇教程将分几个部分向你分别介绍如何应用不同的缓存方案，以及一些高级的有针对性的缓存应用。">
+
+  
+    <link rel="alternative" href="/atom.xml" title="五月碧云天" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<div class="profilepic">
+			<img src="http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg">
+		</div>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">五月碧云天</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/akgitcom" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud">
+						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/chmod/" style="font-size: 10.00px;">chmod</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/css/" style="font-size: 10.00px;">css</a><a href="/tags/devise/" style="font-size: 10.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/linux/" style="font-size: 10.00px;">linux</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 15.00px;">thinkphp</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 15.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/动画库/" style="font-size: 10.00px;">动画库</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 15.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a><a href="/tags/搜索/" style="font-size: 10.00px;">搜索</a><a href="/tags/权限/" style="font-size: 10.00px;">权限</a><a href="/tags/涨姿势/" style="font-size: 10.00px;">涨姿势</a><a href="/tags/缓存/" style="font-size: 10.00px;">缓存</a><a href="/tags/设计/" style="font-size: 10.00px;">设计</a><a href="/tags/路由/" style="font-size: 10.00px;">路由</a><a href="/tags/递归/" style="font-size: 10.00px;">递归</a><a href="/tags/颜色/" style="font-size: 10.00px;">颜色</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://iamsujie.com/">人人都是产品经理</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://litten.github.io/">Litten</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hi.baidu.com/madesign">疯狂的设计</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://jandan.net/">煎蛋</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.mindmeters.com/">思维的乐趣</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zreading.cn/">左岸读书</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gate.guokr.com/">果壳任意门</a>
+			        
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					---------------五月的春天---------------轻笑---------------谁的眼角冒着泡泡---------------伴着苍鹰的尾翼---------------翩然起舞
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay"></div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg">
+			</div>
+
+			<hgroup>
+			  <h1 class="header-author"><a href="/">五月碧云天</a></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/akgitcom" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <article id="post-Ruby-on-Rails-缓存技术" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/29/Ruby-on-Rails-缓存技术/" class="article-date">
+  	<time datetime="2015-01-29T09:04:18.000Z" itemprop="datePublished">Jan 29 2015</time>
+</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ruby on Rails 缓存技术
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当你网站访问量上升的时候，你可能为你的rails项目增加一些缓存应用。这个教程将告诉你关于rails缓存的方方面面，帮助你提高rails应用，而不必再为过度的cpu开销而烦心。</p>
+<p>rails缓存有几种方式，这篇教程将分几个部分向你分别介绍如何应用不同的缓存方案，以及一些高级的有针对性的缓存应用。<br><a id="more"></a></p>
+<h3 id="首先介绍最快速的缓存应用：Page_Caching，页面缓存">首先介绍最快速的缓存应用：Page Caching，页面缓存</h3>
+<h2 id="1、为什么要进行缓存">1、为什么要进行缓存</h2>
+<p>（如果你已经对缓存的必要性有所了解，可以跳过本段）<br>ruby是一种解释性语言，这意味着ruby代码在没有被执行前，是不会编译成机器能识别的机器码的。<br>这个特点和php是一样的，但是java在这方面完全不同（java是先编译成机器码，后运行的）。<br>所以，当有人访问你的ruby程序的时候，你的代码才被读取并执行，你可以想象一下，当每秒钟有100个人访问你的代码的时候，你的程序将会消耗掉很多的系统资源。<br>那么改如何解决呢？<br>（译者：本篇文章讨论的是Rails框架中的缓存机制，Ruby是开发Rails框架的一种语言，和java，c语言一样的。）</p>
+<h2 id="2、缓存">2、缓存</h2>
+<p>缓存是web处理(web应用)中的一个重要的设计策略，它被放置在一个临时的位置。如果有人请求了一个同样的应用，我们就可以为他提供一个应用的缓存版本。<br>提供一个缓存，不仅可以使我们的应用不用读取任何数据库资源，而且请求可以不必经过我们的rails应用服务。（译者：这句话很有意思，往后面看吧）<br>在开始缓存设计之前，有一些rails配置需要设定</p>
+<h2 id="3、缓存配置">3、缓存配置</h2>
+<p>在开始缓存应用前，你需要配置你的<strong>/config/environments/development.rb</strong>文件 </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">onfig.action_controller.perform_caching = <span class="keyword">true</span></div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>默认情况下，缓存在产品模式下会被启动，上面的设置将在开发环境下启动缓存。</p>
+</blockquote>
+<h2 id="4、Page_Caching，页面缓存">4、Page Caching，页面缓存</h2>
+<p>页面缓存是最快速的一种缓存应用。那么应该在什么时候使用他呢？<br>1、对于所有用户都相同的页面<br>2、公开的页面，没有用户认证的页面<br>如果你的应用中有符合上述条件的，请继续阅读下面的部分。如果你的应用中没有，那么也请继续阅读，下面的内容更精彩(ps：我觉得全世界的广告都一样，不过郁闷的是deyeb目前没有一个页面符合上面的条件，除了404和500吧)</p>
+<p>假设我们正在设计一个blog系统，页面并不经常变化，那么我们的controller可能这样来写：</p>
+<p>ruby</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class BlogController &lt; ApplicationController</div><div class="line">  def list</div><div class="line">     Post.find(:all, :order =&gt; <span class="string">"created_on desc"</span>, :limit =&gt; <span class="number">10</span>)</div><div class="line">  end</div><div class="line">  <span class="keyword">...</span></div></pre></td></tr></table></figure>
+
+<p>可以看到，List这个action是查询最近的10篇blog文章，对应的web页面上将会显示查询的结果。<br>如果我们要对这个页面进行缓存的话，只需;</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogController</span> <span class="inheritance">&lt; <span class="parent">ApplicationController</span></span></span></div><div class="line">   caches_page <span class="symbol">:list</span>  </div><div class="line">   <span class="function"><span class="keyword">def</span> </span>list</div><div class="line">     <span class="constant">Post</span>.find(<span class="symbol">:all</span>, <span class="symbol">:order</span> =&gt; <span class="string">"created_on desc"</span>, <span class="symbol">:limit</span> =&gt; <span class="number">10</span>)</div><div class="line">   <span class="keyword">end</span></div><div class="line">  ...</div></pre></td></tr></table></figure>
+
+<p>“caches_page”将会在下次请求list这个action时，将页面内容存入一个html页面，放置在一个缓存目录里。</p>
+<p>当你在mongrel里第一次运行该代码，访问这个页面的时候，你会在 <em>/logs/development.log</em> log日志中发现下面的代码：</p>
+<figure class="highlight logs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Processing BlogController<span class="comment">#list (for 127.0.0.1 at 2007-02-23 00:58:56) [GET]</span></div><div class="line"> Parameters: {<span class="string">"action"</span>=&gt;<span class="string">"list"</span>, <span class="string">"controller"</span>=&gt;<span class="string">"blog"</span>}</div><div class="line">SELECT * FROM posts ORDER BY created_on LIMIT <span class="number">10</span></div><div class="line">Rendering blog/<span class="keyword">list</span></div><div class="line">Cached page: /blog/<span class="keyword">list</span>.html (<span class="number">0.00000</span>)</div><div class="line">Completed in <span class="number">0.18700</span> (<span class="number">5</span> reqs/sec) | Rendering: <span class="number">0.10900</span> (<span class="number">58</span>%) | DB: <span class="number">0.00000</span> (<span class="number">0</span>%) | <span class="number">200</span> OK [http:<span class="comment">//localhost/blog/list]</span></div></pre></td></tr></table></figure>
+
+<p>注意这一句：<em>Cached page: /blog/list.htm</em>，<br>这说明，这个页面已经被加载，而且最终你看到的html页面已经被储存在 <em>/public/blog/list.htm</em> 这个位置，如果你检查一下这个页面的话，你会发现上面没有一行ruby代码。</p>
+<p>以后，如果当有访问同样的url地址的时候，加载的将是这个html页面，而不适重新加载这个controller中的action（译者：这样说更清 楚）。想像的到，加载一个静态的页面可是比加载并处理一个解释性语言要快得多，几乎快上100倍！（ps：这是真对大访问量情况下的有效的解决办法，同时 也是普通网站的一个很好的设计架构。）</p>
+<p>但是只得注意或提醒的是，这样一个静态页面是没有执行任何ruby代码的。所以，当你的页面需要反应一些及时的用户信息，或者当前的信息，你就不能采用这种页面缓存，而是采用局部缓存。这个将在第二部分有讲解。</p>
+<p>回到我们的model，</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">caches_page <span class="symbol">:show</span></div></pre></td></tr></table></figure>
+
+<p>你猜，当我们访问某一篇具体的文章，比如”/blog/show/5“时，这个页面会被缓存在哪里？<br>答案是 这里：<em>/public/blog/show/5.html</em><br>下面的例子说明页面缓存的位置</p>
+<blockquote>
+<p><a href="http://localhost:3000/blog/list" target="_blank" rel="external">http://localhost:3000/blog/list</a> =&gt; /public/blog/list.html<br><a href="http://localhost:3000/blog/edit/5" target="_blank" rel="external">http://localhost:3000/blog/edit/5</a> =&gt; /public/edit/5.html<br><a href="http://localhost:3000/blog" target="_blank" rel="external">http://localhost:3000/blog</a> =&gt; /public/blog.html<br><a href="http://localhost:3000/" target="_blank" rel="external">http://localhost:3000/</a> =&gt; /public/index.html<br><a href="http://localhost:3000/blog/list?page=2" target="_blank" rel="external">http://localhost:3000/blog/list?page=2</a> =&gt; /public/blog/list.html<br><strong>注意：第一行和最后一行的缓存文件是同一个，页面缓存是忽略掉url地址上的参数的。</strong></p>
+</blockquote>
+<h2 id="5、如何缓存我的分页">5、如何缓存我的分页</h2>
+<p>为了缓存不同的页面，你需要不同的地址。（译者：我疯了，这个问题没想到，继续看吧）因为页面缓存的时候会忽略掉像/blog/list?page=2这样的参数，所以你需要使用/blog/list/2这样的地址形式，而原来我们使用的是id保存参数值，现在我们需要用page来保存参数值。<br>下面我们修改 <em>/config/routes.rb</em>文件</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">map.connect <span class="string">'blog/list/:page'</span>,</div><div class="line">    <span class="symbol">:controller</span> =&gt; <span class="string">'blog'</span>,</div><div class="line">    <span class="symbol">:action</span> =&gt; <span class="string">'list'</span>,</div><div class="line">    <span class="symbol">:requirements</span> =&gt; { <span class="symbol">:page</span> =&gt; <span class="regexp">/\d+/</span>},</div><div class="line">    <span class="symbol">:page</span> =&gt; <span class="keyword">nil</span></div></pre></td></tr></table></figure>
+
+<p>使用了新的routes定义，我们的连接也应该改成 </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%= link_to <span class="string">"Next Page"</span>, <span class="symbol">:controller</span> =&gt; <span class="string">'blog'</span>, <span class="symbol">:action</span> =&gt; <span class="string">'list'</span>, <span class="symbol">:page</span> =&gt; <span class="number">2</span> %&gt;</div></pre></td></tr></table></figure>
+
+<p>最终的连接结果是”/blog/list/2”，当我们点这个连接的时候，后台会处理两件事情</p>
+<p>1、应用将2放入page这个参数中，而不是原来id这个参数<br>2、缓存将生成 /public/blog/list/2.html 这个页面</p>
+<blockquote>
+<p>所以，缓存分页，就要将页面参数变成页面的一部分，而不要使用地址参数的形式，他是会被忽略的。</p>
+</blockquote>
+<h2 id="6、清除缓存">6、清除缓存</h2>
+<p>看完上面的内容后你可能想问，如果我添加完一篇新的文章到博客，该如何刷新/blog/list这个action呢？<br>来，看一下我们几分钟前创建的/blog/list.html 页面，它并不包含我们新创建的那个新文章。为了删除这个缓存，并生成一个新的缓存，我们需要让这个页面过期。为了是上面的两个页面过期，我们需要做：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># This will remove /blog/list.html</span></div><div class="line">expire_page(<span class="symbol">:controller</span> =&gt; <span class="string">'blog'</span>, <span class="symbol">:action</span> =&gt; <span class="string">'list'</span>)</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># This will remove /blog/show/5.html</span></div><div class="line">expire_page(<span class="symbol">:controller</span> =&gt; <span class="string">'blog'</span>, <span class="symbol">:action</span> =&gt; <span class="string">'show'</span>, <span class="symbol">:id</span> =&gt; <span class="number">5</span>)</div></pre></td></tr></table></figure>
+
+<p>显然我们需要在每一个执行了添加，删除，修改的地方粘贴上面的代码，但是还有一个更好的方法来解决问题。<br>（译者：头一次翻译这么长的文章，上面写的大家能看明白吗？百度空间发表的这篇文章是首发，完成后会在几个地方转载，大家多提意见）</p>
+<h3 id="7、Sweepers，缓存自动清理">7、Sweepers，缓存自动清理</h3>
+<p>sweepers是一段自动删除旧的缓存的代码。为了实现这个功能，sweepers需要跟踪你的models，当你的model执行了增删改后，sweepers就会执行上面的命令。<br>sweepers可以在你的controllers目录创建，但是我觉得他应该隔离开。你可以在/config/environment.rb.进行个设置：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="constant">Rails::Initializer</span>.run <span class="keyword">do</span> |config|</div><div class="line">   <span class="comment"># ...</span></div><div class="line">   config.load_paths += %<span class="constant">W</span>( <span class="comment">#{RAILS_ROOT}/app/sweepers )</span></div><div class="line">   <span class="comment"># ...</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>ps：记得重启你的服务<br>这样，你就可以在/app/sweepers 这个目录创建你的sweepers了。/app/sweepers/blog_sweeper.rb<br>的代码可以这样来写：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogSweeper</span> <span class="inheritance">&lt; <span class="parent">ActionController::Caching</span></span>::<span class="title">Sweeper</span></span></div><div class="line">  observe <span class="constant">Post</span> <span class="comment"># This sweeper is going to keep an eye on the Post model</span></div><div class="line"></div><div class="line">  <span class="comment"># If our sweeper detects that a Post was created call this</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>after_create(post)</div><div class="line">          expire_cache_for(post)</div><div class="line">  <span class="keyword">end</span></div><div class="line">  </div><div class="line">  <span class="comment"># If our sweeper detects that a Post was updated call this</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>after_update(post)</div><div class="line">          expire_cache_for(post)</div><div class="line">  <span class="keyword">end</span></div><div class="line">  </div><div class="line">  <span class="comment"># If our sweeper detects that a Post was deleted call this</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>after_destroy(post)</div><div class="line">          expire_cache_for(post)</div><div class="line">  <span class="keyword">end</span></div><div class="line">          </div><div class="line">  private</div><div class="line">  <span class="function"><span class="keyword">def</span> </span>expire_cache_for(record)</div><div class="line">    <span class="comment"># Expire the list page now that we posted a new blog entry</span></div><div class="line">    expire_page(<span class="symbol">:controller</span> =&gt; <span class="string">'blog'</span>, <span class="symbol">:action</span> =&gt; <span class="string">'list'</span>)</div><div class="line">    </div><div class="line">    <span class="comment"># Also expire the show page, incase we just edited a blog entry</span></div><div class="line">    expire_page(<span class="symbol">:controller</span> =&gt; <span class="string">'blog'</span>, <span class="symbol">:action</span> =&gt; <span class="string">'show'</span>, <span class="symbol">:id</span> =&gt; record.id)</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>提示：我们可以使用“after_save”替代“after_create”和“after_update”，你自己来试一下吧！<br>我们还需要告诉我们的controller什么时候调用了sweepers，所以在controller中需要加入：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogController</span> <span class="inheritance">&lt; <span class="parent">ApplicationController</span></span></span></div><div class="line">   caches_page <span class="symbol">:list</span>, <span class="symbol">:show</span></div><div class="line">   cache_sweeper <span class="symbol">:blog_sweeper</span>, <span class="symbol">:only</span> =&gt; [<span class="symbol">:create</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>]</div><div class="line">   ...</div></pre></td></tr></table></figure>
+
+<p>好了。我们可以尝试着添加一个新文章，这样在<em>logs/development.log:</em>中你会发现 </p>
+<blockquote>
+<p>Expired page: /blog/list.html (0.00000)<br>Expired page: /blog/show/3.html (0.00000)<br>我们的sweepers已经工作了！<br><strong>译者：这是本文的第一个重要知识</strong></p>
+</blockquote>
+<h1 id="8、rails缓存与Apache/lighttpd的配合应用(deyeb关注的事情)">8、rails缓存与Apache/lighttpd的配合应用(deyeb关注的事情)</h1>
+<p>当我们将rails应用部署到产品环境的时候，我们多数采用的是apache服务器作为rails服务的前端，将rails请求转发到rails服务器上（Mongrel 或 Lighttpd）。因为我们使用了缓存静态文件的方法，所以我们需要告诉apache服务器，服务请求的是否存在静态页面缓存，如果有，则直接读取静态文件，而不用请求rails服务器了。（deyeb的设计如果这么简单就好啦）<br>httpd.conf的配置</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">  ...</div><div class="line">  # Configure mongrel_cluster</div><div class="line">  &lt;Proxy balancer://blog_cluster&gt;</div><div class="line">    BalancerMember http://127.0.0.1:8030</div><div class="line">  &lt;/Proxy&gt;</div><div class="line"></div><div class="line">  RewriteEngine On</div><div class="line">  # Rewrite index to check for static</div><div class="line">  RewriteRule ^/$ /index.html [QSA]</div><div class="line"></div><div class="line">  # Rewrite to check for Rails cached page</div><div class="line">  RewriteRule ^([^.]+)$ $1.html [QSA]</div><div class="line"></div><div class="line">  # Redirect all non-static requests to cluster</div><div class="line">  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f</div><div class="line">  RewriteRule ^/(.*)$ balancer://blog_cluster%{REQUEST_URI} [P,QSA,L]</div><div class="line">  ...</div><div class="line">&lt;/VirtualHost&gt;</div></pre></td></tr></table></figure>
+
+<p>lighttpd 的配置写法</p>
+<figure class="highlight lighttpd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.modules = ( <span class="string">"mod_rewrite"</span>, <span class="keyword">...</span> )</div><div class="line">url.rewrite += ( <span class="string">"^/$"</span> =&gt; <span class="string">"/index.html"</span> )</div><div class="line">url.rewrite += ( <span class="string">"^([^.]+)$"</span> =&gt; <span class="string">"$1.html"</span> )</div></pre></td></tr></table></figure>
+
+<p>代理服务器将会查看你放置在 /public 目录下的静态文件，但是你可能想将这个缓存位置改变一下，以保持独立性。那就继续看下面的介绍。</p>
+<h2 id="9、更改你的缓存放置位置">9、更改你的缓存放置位置</h2>
+<p>首先需要在你的 <em>/config/environment.rb</em> 中添加下面的代码</p>
+<p>config.action_controller.page_cache_directory = RAILS_ROOT + “/public/cache/“<br>这是告诉rails服务你需要将缓存文件放置在/public/cache这个目录下，你还需要重写一下httpd.conf规则。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment"># Rewrite index to check for static</span></div><div class="line"><span class="keyword"><span class="common">RewriteRule</span></span> ^/$ cache/index.html<span class="sqbracket"> [QSA]</span></div><div class="line"></div><div class="line"><span class="comment"># Rewrite to check for Rails cached page</span></div><div class="line"><span class="keyword"><span class="common">RewriteRule</span></span> ^([^.]+)$ cache/<span class="number">$1</span>.html<span class="sqbracket"> [QSA]</span></div></pre></td></tr></table></figure>
+
+<h2 id="10、清除你的局部或整体缓存">10、清除你的局部或整体缓存</h2>
+<p>(原文写的太啰嗦)当你采用了缓存技术时，有时候可能在增删改一个model的时候，需要过期所有的页面缓存，比如当你的所有页面都包含一个最新文章列表的时候。<br>一个方法是删除你所有的缓存文件，首先可以像上面介绍的那样，移动你的缓存目录，然后按照下面的方法写一个sweepers</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogSweeper</span> <span class="inheritance">&lt; <span class="parent">ActionController::Caching</span></span>::<span class="title">Sweeper</span></span></div><div class="line">  observe <span class="constant">Post</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>after_save(record)</div><div class="line">    <span class="keyword">self</span>.<span class="keyword">class</span><span class="symbol">:</span><span class="symbol">:sweep</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">def</span> </span>after_destroy(record)</div><div class="line">    <span class="keyword">self</span>.<span class="keyword">class</span><span class="symbol">:</span><span class="symbol">:sweep</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.sweep</div><div class="line">    cache_dir = <span class="constant">ActionController::Base</span>.page_cache_directory</div><div class="line">    <span class="keyword">unless</span> cache_dir == <span class="constant">RAILS_ROOT</span>+<span class="string">"/public"</span></div><div class="line">      <span class="constant">FileUtils</span>.rm_r(<span class="constant">Dir</span>.glob(cache_dir+<span class="string">"/*"</span>)) <span class="keyword">rescue</span> <span class="constant">Errno::ENOENT</span></div><div class="line">      <span class="constant">RAILS_DEFAULT_LOGGER</span>.info(<span class="string">"Cache directory '<span class="subst">#{cache_dir}</span>' fully sweeped."</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>FileUtils.rm_r 将会删除你所有的缓存文件，当然你也可以逐步删除你的缓存，比如当你想删除/public/blog下面的缓存时，可以：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cache_dir = <span class="constant">ActionController::Base</span>.page_cache_directory</div><div class="line"><span class="constant">FileUtils</span>.rm_r(<span class="constant">Dir</span>.glob(cache_dir+<span class="string">"/blog/*"</span>)) <span class="keyword">rescue</span> <span class="constant">Errno::ENOENT</span></div></pre></td></tr></table></figure>
+
+<p>如果你觉得File Utilities对你实在难于把握，你可以尝试一下 Charlie Bowman 的 broomstick plugin<br>只需一个简单的调用，就可以删除你每一个controller或action缓存。<br>（译者：有必要也会翻译一下上面的这篇文章《Modules, Mixins and Inheritance》，直译 为 组件，混入，和继承，但是这样的计算机编程属于还是用英文的好）</p>
+<h2 id="11、更高级的缓存？">11、更高级的缓存？</h2>
+<p>页面缓存对于像deyeb这样的大型网站，是比较复杂的。（译者：要了朕的亲命了，不然也不会翻译写外文寻找光明了！）下面还有一些其他的方法<br>Rick Olson (aka Technoweenie)写了个 Referenced Page Caching Plugin ，可以使用数据库表进行页面缓存。<br>Max Dunn 写了篇非常好的文章，Advanced Page Caching ，教你如何根据用户的角色，使用cookies进行缓存应用的。<br>最后，貌似没有发现页面缓存xml文件的好方法，Mike Zornek的wrote about his problems 指出了一个处理方法。Manoel Lemos way to do it using action caching<br>我们将在下一章介绍action缓存。</p>
+<h2 id="12、如何测试缓存">12、如何测试缓存</h2>
+<p>没有现成的方法，Luckily Damien Merenne 有一个 swank plugin ，看一下吧。</p>
+<h2 id="13、本章结束">13、本章结束</h2>
+<p>页面缓存应该在你的应用中广泛的使用，毕竟它可以提供很快的相应速度。但是当你的项目始终需要进行用户身份验证和身份显示的时候，这样的处理就有局限了！</p>
+
+      
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/01/19/几个好用的css动画库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">几个好用的css动画库</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Ruby-on-Rails-缓存技术" data-title="Ruby on Rails 缓存技术" data-url="http://akgitcom.github.io/2015/01/29/Ruby-on-Rails-缓存技术/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 五月碧云天
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+  <script src="/js/main.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>
