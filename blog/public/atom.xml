@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://akgitcom.github.io/"/>
-  <updated>2015-01-29T09:12:43.176Z</updated>
+  <updated>2015-01-31T04:51:24.777Z</updated>
   <id>http://akgitcom.github.io/</id>
   
   <author>
@@ -13,6 +13,110 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Tracking Devise User Logins & Sign-ups]]></title>
+    <link href="http://akgitcom.github.io/2015/01/31/Tracking-Devise-User-Logins-Sign-ups/"/>
+    <id>http://akgitcom.github.io/2015/01/31/Tracking-Devise-User-Logins-Sign-ups/</id>
+    <published>2015-01-31T03:48:58.000Z</published>
+    <updated>2015-01-31T04:10:31.000Z</updated>
+    <content type="html"><![CDATA[<p>link:<a href="http://joanswork.com/devise-usage-tracking/" target="_blank" rel="external">http://joanswork.com/devise-usage-tracking/</a></p>
+<h2 id="Tracking_Devise_User_Logins_&amp;_Sign-ups">Tracking Devise User Logins &amp; Sign-ups</h2>
+<p>I need to track the user activity being handled by the <a href="https://github.com/plataformatec/devise" target="_blank" rel="external">Devise</a> gem. A set-up that’s lean, specific to Devise and easily limited to only logins for production. The following is what I came up with. The <a href="https://github.com/charlotte-ruby/impressionist" target="_blank" rel="external">impressionist</a> gem would have been an option but it’s a little much for my needs.</p>
+<p>I’m working with Rails 4.0.2 / Ruby 2.0.0 / Devise 3.2.2. The full source code can be found in <a href="https://github.com/jehughes/rails4-example" target="_blank" rel="external">jehughes/rails4-example</a>.</p>
+<h2 id="The_first_question_is_where_to_put_the_hooks_into_Devise?">The first question is where to put the hooks into Devise?</h2>
+<p><em>(In other words, is this possible without creating a mess?)</em></p>
+<p>I decided to use the ‘after’ action methods that are provided by Devise. The methods you override to redirect the user after they login, logout, etc.</p>
+<p>For example, in <strong>app/controllers/local_devise/registrations_controller.rb</strong> :</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>after_update_path_for(resource)</div><div class="line">  <span class="constant">DeviseUsageLog</span>.log(resource, <span class="constant">DeviseAction::Edit</span>)</div><div class="line">  root_url</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>We’ll define DeviseUsageLog and DeviseAction later.</p>
+<p>Here’s a list where the logging was added in the same way as the method above:</p>
+<table>
+<thead>
+<tr>
+<th>file</th>
+<th>method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><font color="green">applications_controller.rb</font></td>
+<td>after_sign_in_path_for  </td>
+</tr>
+<tr>
+<td><font color="green">local_devise/unlocks_controller.rb</font></td>
+<td>after_unlock_path_for  </td>
+</tr>
+<tr>
+<td><font color="green">local_devise/passwords_controller.rb</font></td>
+<td>after_resetting_password_path_for </td>
+</tr>
+<tr>
+<td><font color="green">local_devise/confirmations_controller.rb</font></td>
+<td>after<em>confirmation_path_for, after_confirmation_set_password_path</em> for</td>
+</tr>
+<tr>
+<td><font color="green">local_devise/registrations_controller.rb</font></td>
+<td>after<em>inactive_sign_up_path_for, after_sign_up_path_for, after</em>- update_path_for</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, to log the deletion of a user account you’ll need to override the <em>destroy</em> method in <strong>local_devise/registrations_controller.rb</strong> :</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>destroy</div><div class="line">  <span class="constant">DeviseUsageLog</span>.log(resource, <span class="constant">DeviseAction::Delete</span>)</div><div class="line">  <span class="keyword">super</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>I’m not tracking user logouts but that would be <strong>after_sign_out_path_for</strong> in <strong>applications_controller.rb</strong>. (Probably. Haven’t tried it out.)</p>
+<h2 id="Use_a_DeviseActions_enum_to_keep_things_tidy">Use a DeviseActions enum to keep things tidy</h2>
+<p>On my wish list was avoiding vague hardcoded strings like ‘edit’ or ‘new’ scattered throughout the source.</p>
+<p>I used the <a href="https://github.com/beerlington/classy_enum" target="_blank" rel="external">classy_enums gem</a> to enforce a list of valid action names.</p>
+<p>After installing the gem, use the generator to create the enum:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rails g classy_enum <span class="constant">DeviseAction</span> new confirmed login password unlocked edit delete</div></pre></td></tr></table></figure>
+
+<p><em>(Yeah, probably overkill but it keeps things in the source and database tidy.)</em></p>
+<h2 id="Next_create_somewhere_to_log_the_data">Next create somewhere to log the data</h2>
+<p><strong>Create the model</strong> DeviseUsageLog.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">create_table <span class="string">"devise_usage_logs"</span>, <span class="symbol">force:</span> <span class="keyword">true</span> <span class="keyword">do</span> |t|</div><div class="line">  t.integer  <span class="string">"user_id"</span>,    <span class="symbol">null:</span> <span class="keyword">false</span></div><div class="line">  t.string   <span class="string">"user_ip"</span></div><div class="line">  t.string   <span class="string">"role"</span></div><div class="line">  t.datetime <span class="string">"created_at"</span></div><div class="line">  t.datetime <span class="string">"updated_at"</span></div><div class="line">  t.string   <span class="string">"username"</span></div><div class="line">  t.string   <span class="string">"action"</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p><strong>action</strong> is the DeviseAction enum. Make the connection between the model and enum by adding the following to <strong>model/devise_usage_log.rb</strong>:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">classy_enum_attr <span class="symbol">:action</span>, <span class="symbol">enum:</span> <span class="string">'DeviseAction'</span>, <span class="symbol">allow_nil:</span> <span class="keyword">true</span></div></pre></td></tr></table></figure>
+
+<p>Allow <strong>action</strong> to be null since we don’t want potential problems to impact the user. This is the same reason the User and DeviseUsageLog models have not been connected through a ‘belongs_to’ and ‘has_many’. The tracking and logging should have as little impact as possible on the application.</p>
+<blockquote>
+<font color="red">Warning – this table that’s going to grow fast! Make sure to set-up a task to periodically archive and truncate.</font>
+
+</blockquote>
+<h2 id="Add_the_ability_to_control_the_level_of_tracking">Add the ability to control the level of tracking</h2>
+<p>We need an application configuration variable that sets the amount of tracking being done. The options are <strong>:none</strong>, <strong>:all</strong> and <strong>:login</strong>. Not setting the variable is the same as <strong>:none</strong>.</p>
+<p>Add the following line in each of the three environment config files: development.rb, test.rb, production.rb.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># level of Devise usage tracking - :all, :login, :none (default)</span></div><div class="line">config.devise_usage_log_level = <span class="symbol">:all</span></div></pre></td></tr></table></figure>
+
+<h2 id="And_finally_–_log_the_tracked_data">And finally – log the tracked data</h2>
+<p>Write the [DeviseUsageLog.log] method we called in the Devise controllers.</p>
+<p>In <strong>model/devise_usage_log.rb</strong>:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.log(resource, new_action)</div><div class="line">    <span class="keyword">return</span> <span class="keyword">unless</span> <span class="constant">User</span>.valid_user?(resource) \</div><div class="line">                  && (<span class="constant">Rails</span>.configuration.respond_to? <span class="symbol">:devise_usage_log_level</span>)</div><div class="line"></div><div class="line">    level = <span class="constant">Rails</span>.configuration.devise_usage_log_level</div><div class="line">    <span class="keyword">if</span> level == <span class="symbol">:all</span> || (level == <span class="symbol">:login</span> && new_action == <span class="constant">DeviseAction::Login</span>)</div><div class="line">      resource.log_devise_action(new_action)</div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>In <strong>model/user.rb</strong>:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.valid_user?(resource)</div><div class="line">    resource && resource.kind_of?(<span class="constant">User</span>) && resource.valid?</div><div class="line">  <span class="keyword">end</span></div><div class="line"> </div><div class="line">  <span class="function"><span class="keyword">def</span> </span>log_devise_action(new_action)</div><div class="line">    <span class="constant">DeviseUsageLog</span>.create!(<span class="symbol">user_id:</span> id, <span class="symbol">role:</span> role, <span class="symbol">user_ip:</span> current_sign_in_ip, <span class="symbol">username:</span> username, <span class="symbol">action:</span> new_action)</div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<h2 id="Tracking_Reports">Tracking Reports</h2>
+<p>The DeviseUsageLog model can now be used to list out the Devise activity anyway you want.</p>
+<p>One example, is the report I added to the Admin tab of <a href="https://github.com/jehughes/rails4-example" target="_blank" rel="external">jehughes/rails4-example</a>. The source can be found in the following places:</p>
+<p>Controller: <a href="https://github.com/jehughes/rails4-example/blob/master/app/controllers/devise_usage_log_controller.rb" target="_blank" rel="external">app/controllers/devise_usage_log_controller.rb</a><br>Model: <a href="https://github.com/jehughes/rails4-example/blob/master/app/models/devise_usage_log.rb" target="_blank" rel="external">app/models/devise_usage_log.rb</a><br>Views: <a href="https://github.com/jehughes/rails4-example/tree/master/app/views/devise_usage_log" target="_blank" rel="external">app/views/devise_usage_log</a></p>
+<p>Or a rake task like <a href="https://github.com/jehughes/rails4-example/blob/master/lib/tasks/devise_usage.rake" target="_blank" rel="external">lib/tasks/devise_usage.rake</a>.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>link:<a href="http://joanswork.com/devise-usage-tracking/" target="_blank" rel="external">http://joanswork.com/devise-usage-tracking/</a>]]>
+    </summary>
+    
+      <category term="devise" scheme="http://akgitcom.github.io/tags/devise/"/>
+    
+      <category term="logs" scheme="http://akgitcom.github.io/tags/logs/"/>
+    
+      <category term="tracking" scheme="http://akgitcom.github.io/tags/tracking/"/>
+    
+      <category term="用户日志" scheme="http://akgitcom.github.io/tags/%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Ruby on Rails 缓存技术]]></title>
@@ -826,25 +930,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[thinkphp 获取搜索引擎蜘蛛]]></title>
-    <link href="http://akgitcom.github.io/2015/01/11/thinkphp-%E8%8E%B7%E5%8F%96%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E8%9C%98%E8%9B%9B/"/>
-    <id>http://akgitcom.github.io/2015/01/11/thinkphp-获取搜索引擎蜘蛛/</id>
-    <published>2015-01-11T14:09:41.000Z</published>
-    <updated>2015-01-12T00:59:57.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="Function_is_bot():">Function is_bot():</h3>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">is_bot</span><span class="params">()</span></span></div><div class="line">{</div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotspage'</span>] = <span class="variable">$_SERVER</span>[<span class="string">'REQUEST_URI'</span>] ? <span class="variable">$_SERVER</span>[<span class="string">'REQUEST_URI'</span>] : <span class="string">''</span>;</div><div class="line">	<span class="variable">$data</span>[<span class="string">'oldurl'</span>] = <span class="variable">$_SERVER</span>[<span class="string">'HTTP_REFERER'</span>] ? <span class="variable">$_SERVER</span>[<span class="string">'HTTP_REFERER'</span>] : <span class="string">'直接访问'</span>;</div><div class="line">	import(<span class="string">'ORG.Net.IpLocation'</span>); <span class="comment">// 导入IpLocation类</span></div><div class="line">	<span class="variable">$Ip</span> = <span class="keyword">new</span> IpLocation(<span class="string">'UTFWry.dat'</span>); <span class="comment">// 实例化类 参数表示IP地址库文件</span></div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotsip'</span>] = get_client_ip();</div><div class="line">	<span class="variable">$useragent</span> = addslashes(strtolower(<span class="variable">$_SERVER</span>[<span class="string">'HTTP_USER_AGENT'</span>]));</div><div class="line">	<span class="keyword">if</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'googlebot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Google'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'mediapartners-google'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Google Adsense'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'baiduspider'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Baidu'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sogou spider'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Sogou'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sogou web'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Sogou web'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sosospider'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'SOSO'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'yahoo'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Yahoo'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'msn'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'MSN'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'msnbot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'msnbot'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sohu'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Sohu'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'yodaoBot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Yodao'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'twiceler'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Twiceler'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'ia_archiver'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Alexa_'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'iaarchiver'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Alexa'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'slurp'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'雅虎'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'bot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'未知'</span>.<span class="variable">$useragent</span>;</div><div class="line">	}</div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotsname'</span>] = <span class="variable">$bot</span>;</div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotsarea'</span>] = serialize(<span class="variable">$Ip</span><span class="variable">-&gt;getlocation</span>(<span class="variable">$data</span>[<span class="string">'robotsip'</span>]));</div><div class="line">	<span class="variable">$data</span>[<span class="string">'create_time'</span>] = time();</div><div class="line">	<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$bot</span>)) <span class="comment">//如果是蜘蛛就存到数据库</span></div><div class="line">	{</div><div class="line">		<span class="comment">//$Jrobot-&gt;create();非表单无隐藏域,无法使用create()方法</span></div><div class="line">		<span class="variable">$Jrobot</span> = D(<span class="string">"Robot"</span>);</div><div class="line">		<span class="variable">$lastInsId</span> = <span class="variable">$Jrobot</span><span class="variable">-&gt;add</span>(<span class="variable">$data</span>);</div><div class="line">	}</div></pre></td></tr></table></figure>
-
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="Function_is_bot():">Function is_bot():</h3>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</di]]>
-    </summary>
-    
-      <category term="php" scheme="http://akgitcom.github.io/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[thinkphp ip 黑名单&白名单]]></title>
     <link href="http://akgitcom.github.io/2015/01/11/thinkphp-ip-%E9%BB%91%E5%90%8D%E5%8D%95-%E7%99%BD%E5%90%8D%E5%8D%95/"/>
     <id>http://akgitcom.github.io/2015/01/11/thinkphp-ip-黑名单-白名单/</id>
@@ -857,6 +942,25 @@
     <summary type="html">
     <![CDATA[<p>获取搜素引擎蜘蛛访问情况，入库统计。<br>]]>
     
+    </summary>
+    
+      <category term="php" scheme="http://akgitcom.github.io/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[thinkphp 获取搜索引擎蜘蛛]]></title>
+    <link href="http://akgitcom.github.io/2015/01/11/thinkphp-%E8%8E%B7%E5%8F%96%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E8%9C%98%E8%9B%9B/"/>
+    <id>http://akgitcom.github.io/2015/01/11/thinkphp-获取搜索引擎蜘蛛/</id>
+    <published>2015-01-11T14:09:41.000Z</published>
+    <updated>2015-01-12T00:59:57.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Function_is_bot():">Function is_bot():</h3>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">is_bot</span><span class="params">()</span></span></div><div class="line">{</div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotspage'</span>] = <span class="variable">$_SERVER</span>[<span class="string">'REQUEST_URI'</span>] ? <span class="variable">$_SERVER</span>[<span class="string">'REQUEST_URI'</span>] : <span class="string">''</span>;</div><div class="line">	<span class="variable">$data</span>[<span class="string">'oldurl'</span>] = <span class="variable">$_SERVER</span>[<span class="string">'HTTP_REFERER'</span>] ? <span class="variable">$_SERVER</span>[<span class="string">'HTTP_REFERER'</span>] : <span class="string">'直接访问'</span>;</div><div class="line">	import(<span class="string">'ORG.Net.IpLocation'</span>); <span class="comment">// 导入IpLocation类</span></div><div class="line">	<span class="variable">$Ip</span> = <span class="keyword">new</span> IpLocation(<span class="string">'UTFWry.dat'</span>); <span class="comment">// 实例化类 参数表示IP地址库文件</span></div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotsip'</span>] = get_client_ip();</div><div class="line">	<span class="variable">$useragent</span> = addslashes(strtolower(<span class="variable">$_SERVER</span>[<span class="string">'HTTP_USER_AGENT'</span>]));</div><div class="line">	<span class="keyword">if</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'googlebot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Google'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'mediapartners-google'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Google Adsense'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'baiduspider'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Baidu'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sogou spider'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Sogou'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sogou web'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Sogou web'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sosospider'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'SOSO'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'yahoo'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Yahoo'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'msn'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'MSN'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'msnbot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'msnbot'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'sohu'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Sohu'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'yodaoBot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Yodao'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'twiceler'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Twiceler'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'ia_archiver'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Alexa_'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'iaarchiver'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'Alexa'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'slurp'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'雅虎'</span>;</div><div class="line">	} <span class="keyword">elseif</span> (strpos(<span class="variable">$useragent</span>, <span class="string">'bot'</span>) !== <span class="keyword">false</span>) {</div><div class="line">	<span class="variable">$bot</span> = <span class="string">'未知'</span>.<span class="variable">$useragent</span>;</div><div class="line">	}</div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotsname'</span>] = <span class="variable">$bot</span>;</div><div class="line">	<span class="variable">$data</span>[<span class="string">'robotsarea'</span>] = serialize(<span class="variable">$Ip</span><span class="variable">-&gt;getlocation</span>(<span class="variable">$data</span>[<span class="string">'robotsip'</span>]));</div><div class="line">	<span class="variable">$data</span>[<span class="string">'create_time'</span>] = time();</div><div class="line">	<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$bot</span>)) <span class="comment">//如果是蜘蛛就存到数据库</span></div><div class="line">	{</div><div class="line">		<span class="comment">//$Jrobot-&gt;create();非表单无隐藏域,无法使用create()方法</span></div><div class="line">		<span class="variable">$Jrobot</span> = D(<span class="string">"Robot"</span>);</div><div class="line">		<span class="variable">$lastInsId</span> = <span class="variable">$Jrobot</span><span class="variable">-&gt;add</span>(<span class="variable">$data</span>);</div><div class="line">	}</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="Function_is_bot():">Function is_bot():</h3>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</di]]>
     </summary>
     
       <category term="php" scheme="http://akgitcom.github.io/tags/php/"/>
