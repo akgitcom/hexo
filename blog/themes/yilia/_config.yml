@@ -2,13 +2,13 @@
 menu:
   主页: /
   所有文章: /archives
-  # 随笔: /tags/随笔
+  随笔: /tags/随笔
 
 # SubNav
 subnav:
-  github: "#"
+  github: "akgitcom.github.io"
   weibo: "#"
-  rss: "#"
+  rss: "atom.xml"
   zhihu: "#"
   #douban: "#"
   #mail: "#"
@@ -35,7 +35,7 @@ google_analytics: ''
 favicon: /favicon.png
 
 #你的头像url
-avatar: 
+avatar: /img/16.jpg
 #是否开启分享
 share: true
 #是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key
