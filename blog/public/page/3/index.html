@@ -23,9 +23,6 @@
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
 
-  
-
-  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
 </head>
 <body>
   <div id="container">
@@ -33,9 +30,11 @@
     <div class="overlay"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
-		<div class="profilepic">
-			<img src="http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg">
-		</div>
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
 
 		<hgroup>
 		  <h1 class="header-author"><a href="/">五月碧云天</a></h1>
@@ -100,11 +99,13 @@
 					<nav class="header-nav">
 						<div class="social">
 							
-								<a class="github" target="_blank" href="http://github.com/akgitcom" title="github">github</a>
+								<a class="github" target="_blank" href="/#" title="github">github</a>
 					        
 								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
 					        
-								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
 					        
 						</div>
 					</nav>
@@ -112,7 +113,7 @@
 				
 				
 				<section class="switch-part switch-part2">
-					<div class="widget tagcloud">
+					<div class="widget tagcloud" id="js-tagcloud">
 						<a href="/tags/2015/" style="font-size: 10.00px;">2015</a><a href="/tags/DynamicRouter/" style="font-size: 10.00px;">DynamicRouter</a><a href="/tags/chmod/" style="font-size: 10.00px;">chmod</a><a href="/tags/cms/" style="font-size: 10.00px;">cms</a><a href="/tags/css/" style="font-size: 10.00px;">css</a><a href="/tags/devise/" style="font-size: 15.00px;">devise</a><a href="/tags/form/" style="font-size: 10.00px;">form</a><a href="/tags/helper/" style="font-size: 10.00px;">helper</a><a href="/tags/kaminari/" style="font-size: 15.00px;">kaminari</a><a href="/tags/link-to/" style="font-size: 10.00px;">link_to</a><a href="/tags/linux/" style="font-size: 10.00px;">linux</a><a href="/tags/logs/" style="font-size: 10.00px;">logs</a><a href="/tags/php/" style="font-size: 15.00px;">php</a><a href="/tags/rails/" style="font-size: 20.00px;">rails</a><a href="/tags/simple-captcha/" style="font-size: 10.00px;">simple captcha</a><a href="/tags/thinkphp/" style="font-size: 15.00px;">thinkphp</a><a href="/tags/tracking/" style="font-size: 10.00px;">tracking</a><a href="/tags/关联查询/" style="font-size: 10.00px;">关联查询</a><a href="/tags/分页/" style="font-size: 15.00px;">分页</a><a href="/tags/动态路由/" style="font-size: 15.00px;">动态路由</a><a href="/tags/动画库/" style="font-size: 10.00px;">动画库</a><a href="/tags/多对多/" style="font-size: 10.00px;">多对多</a><a href="/tags/多语言/" style="font-size: 10.00px;">多语言</a><a href="/tags/客户体验/" style="font-size: 15.00px;">客户体验</a><a href="/tags/年度计划/" style="font-size: 10.00px;">年度计划</a><a href="/tags/搜索/" style="font-size: 10.00px;">搜索</a><a href="/tags/权限/" style="font-size: 10.00px;">权限</a><a href="/tags/涨姿势/" style="font-size: 10.00px;">涨姿势</a><a href="/tags/用户日志/" style="font-size: 10.00px;">用户日志</a><a href="/tags/缓存/" style="font-size: 10.00px;">缓存</a><a href="/tags/设计/" style="font-size: 10.00px;">设计</a><a href="/tags/路由/" style="font-size: 10.00px;">路由</a><a href="/tags/递归/" style="font-size: 10.00px;">递归</a><a href="/tags/颜色/" style="font-size: 10.00px;">颜色</a>
 					</div>
 				</section>
@@ -120,21 +121,21 @@
 				
 				
 				<section class="switch-part switch-part3">
+					<div id="js-friends">
 					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://iamsujie.com/">人人都是产品经理</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://litten.github.io/">Litten</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hi.baidu.com/madesign">疯狂的设计</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://jandan.net/">煎蛋</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.mindmeters.com/">思维的乐趣</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zreading.cn/">左岸读书</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gate.guokr.com/">果壳任意门</a>
-			        
+			        </div>
 				</section>
 				
 
@@ -142,7 +143,7 @@
 				
 				<section class="switch-part switch-part4">
 				
-					---------------五月的春天---------------轻笑---------------谁的眼角冒着泡泡---------------伴着苍鹰的尾翼---------------翩然起舞
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
 				</section>
 				
 			</div>
@@ -152,15 +153,17 @@
     </div>
     <div class="mid-col">
       <nav id="mobile-nav">
-  	<div class="overlay"></div>
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">五月碧云天</h1>
+  	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg">
+				<img lazy-src="null" class="js-avatar">
 			</div>
-
 			<hgroup>
-			  <h1 class="header-author"><a href="/">五月碧云天</a></h1>
+			  <h1 class="header-author">五月碧云天</h1>
 			</hgroup>
 			
 			<nav class="header-menu">
@@ -176,18 +179,20 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="http://github.com/akgitcom" title="github">github</a>
+						<a class="github" target="_blank" href="/#" title="github">github</a>
 			        
 						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
 			        
-						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
 			        
 				</div>
 			</nav>
 		</header>				
 	</div>
 </nav>
-      
+      <div class="body-wrap">
   
     <article id="post-rails开发CMS遇到的问题" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -195,10 +200,6 @@
       <a href="/2015/01/12/rails开发CMS遇到的问题/" class="article-date">
   	<time datetime="2015-01-12T01:43:33.000Z" itemprop="datePublished">Jan 12 2015</time>
 </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cms/">cms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
-
     </div>
   
   <div class="article-inner">
@@ -215,6 +216,7 @@
   
 
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -230,9 +232,24 @@
 
       
     </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cms/">cms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
   
 </article>
+
 
 
 
@@ -246,10 +263,6 @@
       <a href="/2015/01/12/rails-第四天/" class="article-date">
   	<time datetime="2015-01-12T01:37:39.000Z" itemprop="datePublished">Jan 12 2015</time>
 </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DynamicRouter/">DynamicRouter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态路由/">动态路由</a></li></ul>
-
     </div>
   
   <div class="article-inner">
@@ -266,21 +279,36 @@
   
 
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="在rails_4-1-5_里动态设置路由">在rails 4.1.5 里动态设置路由</h2>
 <p>需要动态获取数据路由相关数据来动态设置路由，有同学指出用路由分析库 <a href="https://github.com/rails/journey" target="_blank" rel="external">点我</a>,看上去太复杂了，自己理解为模块设置路由，每次保存前重启应该就可以。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/01/12/rails-第四天/#more">more >></a>
-          </p>
-        
       
     </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DynamicRouter/">DynamicRouter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态路由/">动态路由</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/01/12/rails-第四天/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
   
 </article>
+
 
 
 
@@ -294,10 +322,6 @@
       <a href="/2015/01/12/thinkphp-后台动态设置路由/" class="article-date">
   	<time datetime="2015-01-12T01:34:45.000Z" itemprop="datePublished">Jan 12 2015</time>
 </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thinkphp/">thinkphp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态路由/">动态路由</a></li></ul>
-
     </div>
   
   <div class="article-inner">
@@ -314,6 +338,7 @@
   
 
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -322,16 +347,30 @@
 <p>单独加载routes.php路由文件。routes.php返回数组。</p>
 </blockquote>
 <p>
-        
-          <p class="article-more-link">
-            <a href="/2015/01/12/thinkphp-后台动态设置路由/#more">more >></a>
-          </p>
-        
       
     </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thinkphp/">thinkphp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态路由/">动态路由</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/01/12/thinkphp-后台动态设置路由/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
   
 </article>
+
 
 
 
@@ -345,10 +384,6 @@
       <a href="/2015/01/12/rails-第三天/" class="article-date">
   	<time datetime="2015-01-12T01:11:06.000Z" itemprop="datePublished">Jan 12 2015</time>
 </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/关联查询/">关联查询</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多对多/">多对多</a></li></ul>
-
     </div>
   
   <div class="article-inner">
@@ -365,21 +400,36 @@
   
 
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="多对多关联：">多对多关联：</h2>
 <p>在Rails中多对多关联通过在关联表对应的类中声明has_and_belongs_to_many来实现。<br>在数据库中，多对多关联使用中间表来实现，表中包括关联表的主键，Active Record假定这个中间表的名字是由关联表的名字根据字母的顺序串联起来得到的。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/01/12/rails-第三天/#more">more >></a>
-          </p>
-        
       
     </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/关联查询/">关联查询</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多对多/">多对多</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/01/12/rails-第三天/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
   
 </article>
+
 
 
 
@@ -393,10 +443,6 @@
       <a href="/2015/01/12/rails-第二天/" class="article-date">
   	<time datetime="2015-01-12T01:05:47.000Z" itemprop="datePublished">Jan 12 2015</time>
 </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/form/">form</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/helper/">helper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link-to/">link_to</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
-
     </div>
   
   <div class="article-inner">
@@ -413,6 +459,7 @@
   
 
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -420,16 +467,30 @@
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">AdminsHelper</span></span></div><div class="line">  <span class="keyword">require</span> <span class="string">'open-uri'</span></div><div class="line">  <span class="keyword">require</span> <span class="string">'json'</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>hello_world(name)</div><div class="line">    <span class="string">"hello <span class="subst">#{name}</span>"</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>get_location</div><div class="line">    ip = request.remote_ip</div><div class="line">    url = <span class="string">"http://ip.taobao.com/service/getIpInfo.php?ip="</span> + ip</div><div class="line">    response = <span class="constant">Net::HTTP</span>.get_response(<span class="constant">URI</span>.parse(url)).body</div><div class="line">    response = <span class="constant">JSON</span>.parse(response)[<span class="string">'data'</span>]</div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>get_country</div><div class="line">    response = get_location[<span class="string">'country'</span>]</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 
 <p>
-        
-          <p class="article-more-link">
-            <a href="/2015/01/12/rails-第二天/#more">more >></a>
-          </p>
-        
       
     </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/form/">form</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/helper/">helper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link-to/">link_to</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/01/12/rails-第二天/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
   
 </article>
+
 
 
 
@@ -442,7 +503,7 @@
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
-
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
@@ -459,9 +520,50 @@
     
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
 
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 
-  <script src="/js/main.js" type="text/javascript"></script>
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
   </div>

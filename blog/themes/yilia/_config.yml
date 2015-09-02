@@ -6,29 +6,39 @@ menu:
 
 # SubNav
 subnav:
-  github: "http://github.com/akgitcom"
+  github: "#"
   weibo: "#"
-  rss: "/atom.xml"
-  # facebook: "#"
-  # google: "#"
-  # twitter: "#"
-  # linkedin: "#"
+  rss: "#"
+  zhihu: "#"
+  #douban: "#"
+  #mail: "#"
+  #facebook: "#"
+  #google: "#"
+  #twitter: "#"
+  #linkedin: "#"
 
 rss: /atom.xml
 
 # Content
 excerpt_link: more
 fancybox: true
+mathjax: true
+
+# 是否开启动画效果
+animate: true
+
+# 是否在新窗口打开链接
+open_in_new: false
 
 # Miscellaneous
 google_analytics: ''
 favicon: /favicon.png
-author: 五月碧云天
-#你的头像
-avatar: "http://7u2icj.com1.z0.glb.clouddn.com/github-avatar.jpg"
+
+#你的头像url
+avatar: 
 #是否开启分享
 share: true
-#是否开启多说评论，填写你在多说申请的项目名称
+#是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key
 #若使用disqus，请在博客config文件中填写disqus_shortname，并关闭多说评论
 duoshuo: true
 #是否开启云标签
@@ -36,24 +46,18 @@ tagcloud: true
 
 #是否开启友情链接
 #不开启——
-# friends: false
+#friends: false
 #开启——
 friends:
-  人人都是产品经理: http://iamsujie.com/
-  Litten: http://litten.github.io/
-  疯狂的设计: http://hi.baidu.com/madesign
-  煎蛋: http://jandan.net/
-  思维的乐趣: http://www.mindmeters.com/
-  左岸读书: http://www.zreading.cn/
-  果壳任意门: http://gate.guokr.com/
-#   卡卡的美丽传说: http://localhost:4000/
-#   本泽马的博客: http://localhost:4000/
-#   吉格斯的博客: http://localhost:4000/
-#   习大大大不同: http://localhost:4000/
-#   托蒂的博客: http://localhost:4000/
+  奥巴马的博客: http://localhost:4000/
+  卡卡的美丽传说: http://localhost:4000/
+  本泽马的博客: http://localhost:4000/
+  吉格斯的博客: http://localhost:4000/
+  习大大大不同: http://localhost:4000/
+  托蒂的博客: http://localhost:4000/
 
 #是否开启“关于我”。
 #不开启——
 #aboutme: false
 #开启——
-aboutme: "---------------五月的春天---------------轻笑---------------谁的眼角冒着泡泡---------------伴着苍鹰的尾翼---------------翩然起舞"
+aboutme: 我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…
